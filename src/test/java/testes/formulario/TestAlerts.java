@@ -1,5 +1,6 @@
 package testes.formulario;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.*;
@@ -20,10 +21,10 @@ public class TestAlerts {
 
     }
 
-//    @After
-//    public void fechaBrowser(){
-//        driver.quit();
-//    }
+    @After
+    public void fechaBrowser(){
+        driver.quit();
+    }
 
     @Test
     public void testaAlertSimples(){
@@ -59,6 +60,24 @@ public class TestAlerts {
         alert.dismiss();
         assertEquals("Negado", alert.getText());
         alert.accept();
+
+    }
+
+    @Test
+    public void testAlertPrompt(){
+        driver.findElement(By.id("prompt")).click();
+        Alert alert = driver.switchTo().alert();
+        assertEquals("Digite um numero", alert.getText());
+
+        // escrevendo no prompt
+        alert.sendKeys("12");
+        alert.accept();
+
+        assertEquals("Era 12?", alert.getText());
+        alert.accept();
+
+        assertEquals(":D", alert.getText());
+        alert.dismiss();
 
     }
 
